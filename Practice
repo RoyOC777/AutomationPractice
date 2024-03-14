@@ -1,0 +1,390 @@
+
+roy@Win10sql MINGW64 ~
+$ export token=e4871df5d93f077218258c51a87dc0c9e5fb69b8
+
+roy@Win10sql MINGW64 ~
+$ echo $token
+e4871df5d93f077218258c51a87dc0c9e5fb69b8
+
+roy@Win10sql MINGW64 ~
+$ curl -X GET https://api.todoist.com/rest/v2/projects -H "Authorization: Bearer $token" -v
+Note: Unnecessary use of -X or --request, GET is already inferred.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Host api.todoist.com:443 was resolved.
+* IPv6: (none)
+* IPv4: 108.158.104.61, 108.158.104.14, 108.158.104.37, 108.158.104.115
+*   Trying 108.158.104.61:443...
+* Connected to api.todoist.com (108.158.104.61) port 443
+* schannel: disabled automatic use of client certificate
+* using HTTP/1.x
+> GET /rest/v2/projects HTTP/1.1
+> Host: api.todoist.com
+> User-Agent: curl/8.6.0
+> Accept: */*
+> Authorization: Bearer e4871df5d93f077218258c51a87dc0c9e5fb69b8
+>
+< HTTP/1.1 200 OK
+< Content-Type: application/json
+< Content-Length: 949
+< Connection: keep-alive
+< Date: Thu, 14 Mar 2024 12:42:25 GMT
+< Access-Control-Allow-Credentials: false
+< Access-Control-Allow-Origin: *
+< Referrer-Policy: strict-origin-when-cross-origin
+< Server: gunicorn
+< Set-Cookie: csrf=c2e993f469754323a7b64c0fd9d01a21; Expires=Sun, 12-Mar-2034 12:42:25 GMT; Secure; Path=/; SameSite=None
+< Set-Cookie: tduser=v4.public.eyJ1c2VyX2lkIjogNDg1NzMwMjgsICJleHAiOiAiMjAyNC0wMy0yOFQxMjo0MjoyNSswMDowMCJ9zWDfmWUKw-5CXXkf_EKhE2fcSITp6zn8BNlY76LYLq0A_MJLoZh-OxJtrPn5iCJ6-OKv8XDtq0df_inoluS3CQ; Domain=.todoist.com; Expires=Thu, 28-Mar-2024 12:42:25 GMT; Max-Age=1209600; Secure; HttpOnly; Path=/
+< Set-Cookie: todoistd="/CUdA09psYiwY7pwgn9sRGC/RQQ=?"; Domain=.todoist.com; Expires=Fri, 14-Mar-2025 12:42:25 GMT; Max-Age=31536000; Secure; HttpOnly; Path=/; SameSite=None
+< Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+< Vary: Accept-Encoding
+< X-Cache: Miss from cloudfront
+< Via: 1.1 044bedb33ca0f4efa619a47252c438ba.cloudfront.net (CloudFront)
+< X-Amz-Cf-Pop: LIM50-P1
+< X-Amz-Cf-Id: uqhT77IGAl3KTQ7B2Hx-CmkzY3AlUf6-PyzPsDkCHFm0YiloWu3X0w==
+<
+{ [949 bytes data]
+100   949  100   949    0     0   1163      0 --:--:-- --:--:-- --:--:--  1167[
+        {
+                "id": "2330193275",
+                "parent_id": null,
+                "order": 0,
+                "color": "charcoal",
+                "name": "Inbox",
+                "comment_count": 0,
+                "is_shared": false,
+                "is_favorite": false,
+                "is_inbox_project": true,
+                "is_team_inbox": false,
+                "url": "https://todoist.com/showProject?id=2330193275",
+                "view_style": "list"
+        },
+        {
+                "id": "2330193516",
+                "parent_id": null,
+                "order": 1,
+                "color": "charcoal",
+                "name": "Lista de Materiales",
+                "comment_count": 0,
+                "is_shared": false,
+                "is_favorite": false,
+                "is_inbox_project": false,
+                "is_team_inbox": false,
+                "url": "https://todoist.com/showProject?id=2330193516",
+                "view_style": "list"
+        },
+        {
+                "id": "2330193922",
+                "parent_id": null,
+                "order": 2,
+                "color": "charcoal",
+                "name": "Mi lista",
+                "comment_count": 0,
+                "is_shared": false,
+                "is_favorite": false,
+                "is_inbox_project": false,
+                "is_team_inbox": false,
+                "url": "https://todoist.com/showProject?id=2330193922",
+                "view_style": "list"
+        }
+]
+
+* Connection #0 to host api.todoist.com left intact
+
+roy@Win10sql MINGW64 ~
+$ curl https://api.todoist.com/rest/v2/projects/2330193922 -H "Authorization: Bearer $token"
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   298  100   298    0     0    192      0  0:00:01  0:00:01 --:--:--   193{
+        "id": "2330193922",
+        "parent_id": null,
+        "order": 2,
+        "color": "charcoal",
+        "name": "Mi lista",
+        "comment_count": 0,
+        "is_shared": false,
+        "is_favorite": false,
+        "is_inbox_project": false,
+        "is_team_inbox": false,
+        "url": "https://todoist.com/showProject?id=2330193922",
+        "view_style": "list"
+}
+
+
+roy@Win10sql MINGW64 ~
+$ curl "https://api.todoist.com/rest/v2/projects" -X POST --data '{ "name": "Otra Lista" }' -H "Content-Type: application/json" -H "Authorization: Bearer $token"
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   324  100   300  100    24    286     22  0:00:01  0:00:01 --:--:--   310{
+        "id": "2330216088",
+        "parent_id": null,
+        "order": 3,
+        "color": "charcoal",
+        "name": "Otra Lista",
+        "comment_count": 0,
+        "is_shared": false,
+        "is_favorite": false,
+        "is_inbox_project": false,
+        "is_team_inbox": false,
+        "url": "https://todoist.com/showProject?id=2330216088",
+        "view_style": "list"
+}
+
+
+roy@Win10sql MINGW64 ~
+$ curl "https://api.todoist.com/rest/v2/projects" -X POST --data {} -H "Content-Type: application/json" -H "Authorization: Bearer $token"
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100    48  100    46  100     2     81      3 --:--:-- --:--:-- --:--:--    85Name must be provided for the project creation
+
+roy@Win10sql MINGW64 ~
+$ Export idproject=2330216088
+bash: Export: command not found
+
+roy@Win10sql MINGW64 ~
+$ curl export idproject=2330216088
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0curl: (6) Could not resolve host: export
+curl: (3) URL rejected: Bad hostname
+
+roy@Win10sql MINGW64 ~
+$ export idproject=2330216088
+
+roy@Win10sql MINGW64 ~
+$ nano data.json
+
+roy@Win10sql MINGW64 ~
+$ curl "https://api.todoist.com/rest/v2/projects" -X POST --data @data.json -H "Content-Type: application/json" -H "Authorization: Bearer $token"
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   335  100   307  100    28    371     33 --:--:-- --:--:-- --:--:--   407{
+        "id": "2330216871",
+        "parent_id": null,
+        "order": 4,
+        "color": "charcoal",
+        "name": "Projecto con file",
+        "comment_count": 0,
+        "is_shared": false,
+        "is_favorite": false,
+        "is_inbox_project": false,
+        "is_team_inbox": false,
+        "url": "https://todoist.com/showProject?id=2330216871",
+        "view_style": "list"
+}
+
+
+roy@Win10sql MINGW64 ~
+$ curl "https://api.todoist.com/rest/v2/projects" -X POST --data @dato.json -H "Content-Type: application/json" -H "Authorization: Bearer $token"
+curl: Failed to open dato.json
+curl: option --data: error encountered when reading a file
+curl: try 'curl --help' or 'curl --manual' for more information
+
+roy@Win10sql MINGW64 ~
+$ curl "https://api.todoist.com/rest/v2/projects/$idproject" -X POST --data '{ "name": "Modified Project" }' -H "Content-Type: application/json" -H "Authorization: Bearer $token"
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   336  100   306  100    30     60      5  0:00:06  0:00:05  0:00:01    80{
+        "id": "2330216088",
+        "parent_id": null,
+        "order": 3,
+        "color": "charcoal",
+        "name": "Modified Project",
+        "comment_count": 0,
+        "is_shared": false,
+        "is_favorite": false,
+        "is_inbox_project": false,
+        "is_team_inbox": false,
+        "url": "https://todoist.com/showProject?id=2330216088",
+        "view_style": "list"
+}
+
+
+roy@Win10sql MINGW64 ~
+$ curl "https://api.todoist.com/rest/v2/projects/$idproject" -X POST --data '{ "name": "Modified Project2" }' -H "Content-Type: application/json" -H "Authorization: Bearer $token" -v
+Note: Unnecessary use of -X or --request, POST is already inferred.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Host api.todoist.com:443 was resolved.
+* IPv6: (none)
+* IPv4: 108.158.104.14, 108.158.104.37, 108.158.104.61, 108.158.104.115
+*   Trying 108.158.104.14:443...
+* Connected to api.todoist.com (108.158.104.14) port 443
+* schannel: disabled automatic use of client certificate
+* using HTTP/1.x
+> POST /rest/v2/projects/2330216088 HTTP/1.1
+> Host: api.todoist.com
+> User-Agent: curl/8.6.0
+> Accept: */*
+> Content-Type: application/json
+> Authorization: Bearer e4871df5d93f077218258c51a87dc0c9e5fb69b8
+> Content-Length: 31
+>
+} [31 bytes data]
+< HTTP/1.1 200 OK
+< Content-Type: application/json
+< Content-Length: 307
+< Connection: keep-alive
+< Date: Thu, 14 Mar 2024 13:05:17 GMT
+< Access-Control-Allow-Credentials: false
+< Access-Control-Allow-Origin: *
+< Cache-Control: no-cache
+< Referrer-Policy: strict-origin-when-cross-origin
+< Server: gunicorn
+< Set-Cookie: csrf=667eba98f69a4e4e8dfd90f9d31f1d5c; Expires=Sun, 12-Mar-2034 13:05:16 GMT; Secure; Path=/; SameSite=None
+< Set-Cookie: tduser=v4.public.eyJ1c2VyX2lkIjogNDg1NzMwMjgsICJleHAiOiAiMjAyNC0wMy0yOFQxMzowNToxNyswMDowMCJ92kUVWOra3ZGFamZ1O45DCvhgZzL5GeBYXPOeBCI7E8CzXie1FrjnGqc_aJyMJnAOTBZZKPAWu42jPV5PkbFvAA; Domain=.todoist.com; Expires=Thu, 28-Mar-2024 13:05:17 GMT; Max-Age=1209600; Secure; HttpOnly; Path=/
+< Set-Cookie: todoistd="/CUdA09psYiwY7pwgn9sRGC/RQQ=?"; Domain=.todoist.com; Expires=Fri, 14-Mar-2025 13:05:17 GMT; Max-Age=31536000; Secure; HttpOnly; Path=/; SameSite=None
+< Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+< Vary: Accept-Encoding
+< X-Cache: Miss from cloudfront
+< Via: 1.1 cdf2e63ca525f9a875840d49cccd3ba6.cloudfront.net (CloudFront)
+< X-Amz-Cf-Pop: LIM50-P1
+< X-Amz-Cf-Id: i_DGwb-maFTIMyVeGlAT2IEu_qBkY6jDLYhqofIFwCzgNTTPEVjTxA==
+<
+{ [307 bytes data]
+100   338  100   307  100    31    439     44 --:--:-- --:--:-- --:--:--   484{
+        "id": "2330216088",
+        "parent_id": null,
+        "order": 3,
+        "color": "charcoal",
+        "name": "Modified Project2",
+        "comment_count": 0,
+        "is_shared": false,
+        "is_favorite": false,
+        "is_inbox_project": false,
+        "is_team_inbox": false,
+        "url": "https://todoist.com/showProject?id=2330216088",
+        "view_style": "list"
+}
+
+* Connection #0 to host api.todoist.com left intact
+
+roy@Win10sql MINGW64 ~
+$ curl "https://api.todoist.com/rest/v2/projects/$idprojecto" -X POST --data '{ "name": "Modified Project2" }' -H "Content-Type: application/json" -H "Authorization: Bearer $token" -v
+Note: Unnecessary use of -X or --request, POST is already inferred.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Host api.todoist.com:443 was resolved.
+* IPv6: (none)
+* IPv4: 108.158.104.61, 108.158.104.115, 108.158.104.14, 108.158.104.37
+*   Trying 108.158.104.61:443...
+* Connected to api.todoist.com (108.158.104.61) port 443
+* schannel: disabled automatic use of client certificate
+* using HTTP/1.x
+> POST /rest/v2/projects/ HTTP/1.1
+> Host: api.todoist.com
+> User-Agent: curl/8.6.0
+> Accept: */*
+> Content-Type: application/json
+> Authorization: Bearer e4871df5d93f077218258c51a87dc0c9e5fb69b8
+> Content-Length: 31
+>
+} [31 bytes data]
+< HTTP/1.1 200 OK
+< Content-Type: application/json
+< Content-Length: 307
+< Connection: keep-alive
+< Date: Thu, 14 Mar 2024 13:05:29 GMT
+< Access-Control-Allow-Credentials: false
+< Access-Control-Allow-Origin: *
+< Cache-Control: no-cache
+< Referrer-Policy: strict-origin-when-cross-origin
+< Server: gunicorn
+< Set-Cookie: csrf=071b6b68da1f4febbf702e2fdc5dd699; Expires=Sun, 12-Mar-2034 13:05:28 GMT; Secure; Path=/; SameSite=None
+< Set-Cookie: tduser=v4.public.eyJ1c2VyX2lkIjogNDg1NzMwMjgsICJleHAiOiAiMjAyNC0wMy0yOFQxMzowNToyOSswMDowMCJ9140kPxttu4Cic2PqC8N7vEH1HZ_GBGtYwe532ISPqqsBgzL6E1iNKU1-i17l69cPDOHAbfRvvMXm3elPcz8CCA; Domain=.todoist.com; Expires=Thu, 28-Mar-2024 13:05:29 GMT; Max-Age=1209600; Secure; HttpOnly; Path=/
+< Set-Cookie: todoistd="/CUdA09psYiwY7pwgn9sRGC/RQQ=?"; Domain=.todoist.com; Expires=Fri, 14-Mar-2025 13:05:29 GMT; Max-Age=31536000; Secure; HttpOnly; Path=/; SameSite=None
+< Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+< Vary: Accept-Encoding
+< X-Cache: Miss from cloudfront
+< Via: 1.1 3601b3583b8fa2c1ff5a4060892d24b2.cloudfront.net (CloudFront)
+< X-Amz-Cf-Pop: LIM50-P1
+< X-Amz-Cf-Id: OQVmsuGKmpw0r3kJkyMWWtgNwAfVfmHUIenmxHEOW43tLH4cIQsGJw==
+<
+{ [307 bytes data]
+100   338  100   307  100    31    318     32 --:--:-- --:--:-- --:--:--   351{
+        "id": "2330217085",
+        "parent_id": null,
+        "order": 5,
+        "color": "charcoal",
+        "name": "Modified Project2",
+        "comment_count": 0,
+        "is_shared": false,
+        "is_favorite": false,
+        "is_inbox_project": false,
+        "is_team_inbox": false,
+        "url": "https://todoist.com/showProject?id=2330217085",
+        "view_style": "list"
+}
+
+* Connection #0 to host api.todoist.com left intact
+
+roy@Win10sql MINGW64 ~
+$ curl "https://api.todoist.com/rest/v2/projects/$idprojecto" -X POST --data '{ "name": "Modified Project2" }' -H "Content-Type: application/json" -H "Authorization: Bearer $token"
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   338  100   307  100    31     93      9  0:00:03  0:00:03 --:--:--   103{
+        "id": "2330217131",
+        "parent_id": null,
+        "order": 6,
+        "color": "charcoal",
+        "name": "Modified Project2",
+        "comment_count": 0,
+        "is_shared": false,
+        "is_favorite": false,
+        "is_inbox_project": false,
+        "is_team_inbox": false,
+        "url": "https://todoist.com/showProject?id=2330217131",
+        "view_style": "list"
+}
+
+
+roy@Win10sql MINGW64 ~
+$ curl -X DELETE "https://api.todoist.com/rest/v2/projects/$idproject" -H "Authorization: Bearer $token"
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+
+roy@Win10sql MINGW64 ~
+$ curl -X DELETE "https://api.todoist.com/rest/v2/projects/$idproject" -H "Authorization: Bearer $token"
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0
+
+roy@Win10sql MINGW64 ~
+$ curl -X DELETE "https://api.todoist.com/rest/v2/projects/$idproject" -H "Authorization: Bearer $token" -v
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Host api.todoist.com:443 was resolved.
+* IPv6: (none)
+* IPv4: 108.158.104.14, 108.158.104.37, 108.158.104.61, 108.158.104.115
+*   Trying 108.158.104.14:443...
+* Connected to api.todoist.com (108.158.104.14) port 443
+* schannel: disabled automatic use of client certificate
+* using HTTP/1.x
+> DELETE /rest/v2/projects/2330216088 HTTP/1.1
+> Host: api.todoist.com
+> User-Agent: curl/8.6.0
+> Accept: */*
+> Authorization: Bearer e4871df5d93f077218258c51a87dc0c9e5fb69b8
+>
+< HTTP/1.1 204 No Content
+< Content-Type: text/html; charset=utf-8
+< Connection: keep-alive
+< Date: Thu, 14 Mar 2024 13:07:25 GMT
+< Access-Control-Allow-Credentials: false
+< Access-Control-Allow-Origin: *
+< Cache-Control: no-cache
+< Referrer-Policy: strict-origin-when-cross-origin
+< Server: gunicorn
+< Set-Cookie: csrf=545186c02c99456ead9027527da8ee0d; Expires=Sun, 12-Mar-2034 13:07:25 GMT; Secure; Path=/; SameSite=None
+< Set-Cookie: tduser=v4.public.eyJ1c2VyX2lkIjogNDg1NzMwMjgsICJleHAiOiAiMjAyNC0wMy0yOFQxMzowNzoyNSswMDowMCJ9uGmiHwWcJjOPHLh70eN1h7wfkBk7fWAMSCdmn4xJqWs8xOWcbSOPDcr0ALdcZBSiSWe9kQ4FIHqP2BAXgDNMBg; Domain=.todoist.com; Expires=Thu, 28-Mar-2024 13:07:25 GMT; Max-Age=1209600; Secure; HttpOnly; Path=/
+< Set-Cookie: todoistd="/CUdA09psYiwY7pwgn9sRGC/RQQ=?"; Domain=.todoist.com; Expires=Fri, 14-Mar-2025 13:07:25 GMT; Max-Age=31536000; Secure; HttpOnly; Path=/; SameSite=None
+< Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+< Vary: Accept-Encoding
+< X-Cache: Miss from cloudfront
+< Via: 1.1 6a8bde05883e3a529e47f40f0d9e7aaa.cloudfront.net (CloudFront)
+< X-Amz-Cf-Pop: LIM50-P1
+< X-Amz-Cf-Id: Q46I6OHbjtpr27eIaDpHeIwgGFoosMRwrxElKroR-3F6Hk8P8_GK2w==
+<
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+* Connection #0 to host api.todoist.com left intact
